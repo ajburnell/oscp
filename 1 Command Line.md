@@ -70,8 +70,6 @@ Filter further to see what address the top IP is accessing:
 More details show brute force attack:  
 `cat access.log | grep '208.68.234.99' | grep '/admin ' | sort -u`  
 Are there any non /admin lines involving that IP?  
-`cat access.log | grep '208.68.234.99' | grep '/admin ' | sort -u`  
-`cat access.log|grep '208.68.234.99'| grep -v '/admin '`  
-`cat access.log|grep '208.68.234.99'| grep -v '/admin '
+`cat access.log|grep '208.68.234.99'| grep -v '/admin '`
 
 
