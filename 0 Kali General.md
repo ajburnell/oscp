@@ -63,7 +63,5 @@ Install a package
 `sudo apt remove --purge`  
 Removes all package data but leaves modified user config files behind, --purge removes them.
 
-```bash
-sudo dpkg -i man-db_2.7.0.2-5_amd64.deb
-```
+`sudo dpkg -i man-db_2.7.0.2-5_amd64.deb`  
 dpkg installs a package directly and does not require Internet. It will not install dependencies.
