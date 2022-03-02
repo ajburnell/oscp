@@ -51,7 +51,7 @@ https://linux.die.net/man/1/grep
 sed is a powerful stream editor.  
 https://www.gnu.org/software/sed/manual/sed.html
 
-`echo "I hack binaries,web apps,mobile apps, and just about anything else"| cut -f 2 -d ","`
+`echo "I hack binaries,web apps,mobile apps, and just about anything else"| cut -f 2 -d ","`  
 `cut -d ":" -f 1 /etc/passwd`  
 cut is simple and effective. Common switches include `-f` for the field and `-d` for the delimeter.  
 https://linux.die.net/man/1/cut
@@ -71,5 +71,8 @@ More details show brute force attack:
 `cat access.log | grep '208.68.234.99' | grep '/admin ' | sort -u`  
 Are there any non /admin lines involving that IP?  
 `cat access.log|grep '208.68.234.99'| grep -v '/admin '`
+
+The lab:  
+`cut field_of_flags.csv -d ',' -f 13 | tr -d [:cntrl:] | cut -d " " -f 4`
 
 
