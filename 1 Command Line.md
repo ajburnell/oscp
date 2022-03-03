@@ -75,4 +75,39 @@ Are there any non /admin lines involving that IP?
 The lab:  
 `cut field_of_flags.csv -d ',' -f 13 | tr -d [:cntrl:] | cut -d " " -f 4`
 
+## Comparing Files
+`comm -12 scan-a.txt scan-b.txt`  
+comm compares two text files and outputs three columns, lines unique to the first file, lines unique to the second file, and shared lines between both. The numbers can be used as a switch to suppress certain columns.
+
+`diff -u scan-a.txt scan-b.txt`  
+`diff -c scan-a.txt scan-b.txt`  
+Two popular outputs include `-c` context format and `-u` unified format. The `-` in output indicates the line is in the first file, not the second. The `+` indicator shows the opposite.
+
+`vimdiff scan-a.txt scan-b.txt`  
+* `do`: gets changes from the other window into the current one
+* `dp`: puts the changes from the current window into the other one
+* `]c`: jumps to the next change
+* `[c`: jumps to the previous change
+* `Ctrl + w`: switches to the other split window.
+
+## Managing Processes
+`ping -c 400 localhost > ping_results.txt &`  
+Use the `&` to background a process. Useful for VPN!  
+`Ctrl-C` cancels a running job and `Ctrl-Z` suspends it. `bg` can resume a suspended job in the background. Some time sensitive processes may give incorrect results if they are time sensitive.
+
+`jobs` lists running jobs while `fg` returns it to the foreground. If there are multiple jobs you can reference them:
+`fg %1`  
+* %Number : Refers to a job number such as %1 or %2
+* %String : Refers to the beginning of the suspended command's name such as %commandNameHere or %ping
+* %+ OR %% : Refers to the current job
+* %- : Refers to the previous job
+
+`ps -ef`  
+List all currently running processes. `-e` select all while `-f` displays full format listing.  
+`ps -fC leafpad`  
+Narrow down by process name with `-C`.  
+`kill 1307`  
+Kill a process with SIGTERM by it's process number.
+
+
 
