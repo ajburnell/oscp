@@ -142,7 +142,7 @@ http://man7.org/linux/man-pages/man3/strftime.3.html
 `alias lsa='ls -la'`  
 Define an alias to a command.
 
-`alias mkdir='ping -c 1 localhost'  
+`alias mkdir='ping -c 1 localhost'`  
 Can overwrite existing commands!
 
 `unalias mkdir`  
