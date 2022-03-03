@@ -109,5 +109,52 @@ Narrow down by process name with `-C`.
 `kill 1307`  
 Kill a process with SIGTERM by it's process number.
 
+## File and Command Monitoring
+`sudo tail -f /var/log/apache2/access.log`  
+`-f` continuously updates the output and `-nX` outputs X number of lines.
+
+`watch -n 5 w`  
+Runs the designated command at a set number of intervals using `-n` for seconds.
+
+## Downloading Files
+
+`wget -O report_wget.pdf https://www.offensive-security.com/reports/penetration-testing-sample-report-2013.pdf`  
+wget with the `-O` to save locally with a different name.
+
+`curl -o report.pdf https://www.offensive-security.com/reports/penetration-testing-sample-report-2013.pdf`  
+Supports lots of protocols.  
+http://www.mit.edu/afs.new/sipb/user/ssen/src/curl-7.11.1/docs/curl.html
+
+`axel -a -n 20 -o report_axel.pdf https://www.offensive-security.com/reports/penetration-testing-sample-report-2013.pdf`  
+Download accelerator. `-n` specifies number of connections, `-a` for a progress indicator and `-o` for output filename.
+
+## Customising Bash
+`export HISTCONTROL=ignoredups`  
+Use HISTCONTROL to remove duplicates from bash history.
+
+`export HISTIGNORE="&:ls:[bf]g:exit:history"`  
+Use HISTIGNORE to filter common commands.
+
+`export HISTTIMEFORMAT='%F %T '`  
+Use HISTTIMEFORMAT to include date/time in bash history.  
+http://man7.org/linux/man-pages/man3/strftime.3.html
+
+`alias lsa='ls -la'`  
+Define an alias to a command.
+
+`alias mkdir='ping -c 1 localhost'  
+Can overwrite existing commands!
+
+`unalias mkdir`  
+Remove unwanted alias.
+
+`cat ~/.bashrc`  
+Persistent bash customisation.
+
+
+
+
+
+
 
 
