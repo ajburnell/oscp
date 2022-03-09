@@ -1,4 +1,4 @@
 # oscp
 OSCP Study Guide
 
-[Kali Foundations](/0 Kali General.md)
+[Kali Foundations](0_Kali_General.md)
