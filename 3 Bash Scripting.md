@@ -315,10 +315,3 @@ ls -1 *.png | awk -F : '{ print $1":\n<BR><IMG SRC=\""$1""$2"\" width=600><BR>"}
 
 echo "</BODY></HTML>" >> web.html
 ```
-
-# Exercises
-
-- Research Bash loops and write a short script to perform a ping sweep of your target IP range of 10.11.1.0/24.
-- Try to do the above exercise with a higher-level scripting language such as Python, Perl, or Ruby.
-- Use the practical examples in this module to help you create a Bash script that extracts JavaScript files from the access_log.txt file (http://www.offensive-security.com/pwk-files/access_log.txt.gz). Make sure the file names DO NOT include the path, are unique, and are sorted.
-- Re-write the previous exercise in another language such as Python, Perl, or Ruby.
