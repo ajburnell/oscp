@@ -167,3 +167,8 @@ DNS Exfiltration from CTF:
 `tcpdump -r ~/Desktop/dns.pcapng | awk -F " " '{print substr($9, 1, length($9)-1)}'`
 `tcpdump -r ~/Desktop/dns.pcapng | awk -F " " '{print substr($9, 1, length($9)-1)}' | sort | xxd -p -r`
 
+# XfreeRDP 
+For connecting to Windows and other RDP sessions with Kali:  
+`xfreerdp /u:Tester /p:1234 /v:192.168.0.101`  
+Add `/f` for full screen.
+
