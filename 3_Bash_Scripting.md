@@ -50,17 +50,17 @@ Running a script with -x after the shebang allows Bash to print debug output, so
 ## Arguments
 
 ```
-VARIABLE NAME	DESCRIPTION
-$0				 	The name of the Bash script
-$1 - $9			The first 9 arguments to the Bash script
-$#					 Number of arguments passed to the Bash script
-$@					All arguments passed to the Bash script
-$?					The exit status of the most recently run process
-$$					The process ID of the current script
-$USER			The username of the user running the script
-$HOSTNAME	The hostname of the machine
-$RANDOM		 A random number
-$LINENO		 The current line number in the script
+VARIABLE NAME   	DESCRIPTION
+$0				 	      The name of the Bash script
+$1 - $9			      The first 9 arguments to the Bash script
+$#					      Number of arguments passed to the Bash script
+$@					      All arguments passed to the Bash script
+$?					      The exit status of the most recently run process
+$$					      The process ID of the current script
+$USER			        The username of the user running the script
+$HOSTNAME	        The hostname of the machine
+$RANDOM		        A random number
+$LINENO		        The current line number in the script
 ```
 
 You can read user input with the `read` command. `-p` specifies a prompt while `-s` makes the user input silent.
