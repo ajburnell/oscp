@@ -51,7 +51,7 @@ Running a script with -x after the shebang allows Bash to print debug output, so
 
 ```
 VARIABLE NAME   	DESCRIPTION
-$0				 	      The name of the Bash script
+$0                The name of the Bash script
 $1 - $9			      The first 9 arguments to the Bash script
 $#					      Number of arguments passed to the Bash script
 $@					      All arguments passed to the Bash script
