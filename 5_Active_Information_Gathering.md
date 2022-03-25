@@ -48,11 +48,13 @@ done
 ```
 
 ## DNSRecon & DNSEnum
-
+Perform a zone transfer with DNS recon:  
 `dnsrecon -d megacorpone.com -t axfr`
 
+Brute forcing hostnames wsith dnsrecon:  
 `dnsrecon -d megacorpone.com -D /usr/share/seclists/Discovery/DNS/deepmagic.com-prefixes-top500.txt -t brt`
 
+DNS Enumeration with dnsenum:  
 `dnsenum megacorpone.com`
 
 # Port Scanning
