@@ -37,6 +37,7 @@ Search for things like AWS client ID.
 
 https://www.shodan.io/explore  
 https://securityheaders.com/  
+https://pastebin.com/  
 https://www.ssllabs.com/ssltest/  
 https://www.social-searcher.com/  
 https://digi.ninja/projects/twofi.php  
