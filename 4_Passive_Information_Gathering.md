@@ -35,12 +35,12 @@ Search for things like AWS client ID.
 
 ## Other Enumeration
 
-https://www.shodan.io/explore
-https://securityheaders.com/
-https://www.ssllabs.com/ssltest/
-https://www.social-searcher.com/
-https://digi.ninja/projects/twofi.php
-https://github.com/initstring/linkedin2username
+https://www.shodan.io/explore  
+https://securityheaders.com/  
+https://www.ssllabs.com/ssltest/  
+https://www.social-searcher.com/  
+https://digi.ninja/projects/twofi.php  
+https://github.com/initstring/linkedin2username  
 Maltego
 
 ## Email Harvesting
