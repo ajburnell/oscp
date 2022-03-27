@@ -115,6 +115,9 @@ Combine a SYN and a UDP scan:
 **Network sweep** odes more than ICMP. Sends a SYN packet to 443 and an ACK packet to port 80. 
 `nmap -sn 10.11.1.1-254`
 
+Read in from file:
+`sudo nmap -sS -p 139,445 $line -iL up_servers.txt -oG smb_servers.txt`
+
 Easier to scan and output to greppable format and then grep the results:
 `nmap -v -sn 10.11.1.1-254 -oG ping-sweep.txt`
 `grep Up ping-sweep.txt | cut -d " " -f 2`
