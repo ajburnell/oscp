@@ -21,6 +21,10 @@
 
 ## Zone Transfer
 
+When performing some of the exercises I would not get all the zone transfer information from dnsrecon or host -l, whereas dnsenum and fierce would. Pays not to just use one tool!  
+https://github.com/mschwager/fierce
+`fierce --domain _msdsc.mailman.com`
+
 `host -l <domain name> <dns server address>`
 
 To get both the domain name and dns server:
