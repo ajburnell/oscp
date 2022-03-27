@@ -57,6 +57,18 @@ Brute forcing hostnames wsith dnsrecon:
 DNS Enumeration with dnsenum:  
 `dnsenum megacorpone.com`
 
+If we do not know any of the hostnames we can enumerate for local DNS servers:  
+`sudo nmap -v -p 53 192.168.0.0/24`  
+We can then perform an nmap scan and try and resolve services using a specific domain server, such as one we just discovered with the above command:  
+`sudo nmap -sL -v --dns-server 192.168.0.100 192.168.0.0/24`  
+We can then make a query on a found domain name, again specifying that name server:  
+`dig @192.168.0.100 example.com ANY`  
+`dnsrecon --dnsserver 192.168.0.100 example.com` OR  
+`dnsenum -n 191.168.0.100 -d example.com`
+
+## Querying Multiple Sites
+`cat sites.txt | while read line; do dig -t TXT $line; done`
+
 # Port Scanning
 
 Netcat for the basics:
