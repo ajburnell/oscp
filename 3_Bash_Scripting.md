@@ -145,6 +145,8 @@ The above uses seq to print 10.11.1.1 all the way to 10.11.1.10. This can also b
 
 ```bash
 for i in {1..10}; do echo 10.11.1.$i; done
+# To a file?
+for ip in $(seq 1 254); do echo 10.11.1.$ip; done > ips
 ```
 
 ## While Loops
