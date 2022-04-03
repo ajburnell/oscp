@@ -37,8 +37,21 @@ The -maxtime option will halt the scan after the specified time limit. This does
 
 `nikto -host=http://www.megacorpone.com -maxtime=30s`
 
-## Web Admin Exploitation
-ka
-Use a pitchfork attack in Burp when a web console requires a unique cookie and token for each request. You can do a recursive grep to get the values from a response and inject into the next request. An example may be defining grep to...
-Start with: \_session" value="
-Finish with: " />Log
+## Web Admin Exploitation Example
+
+https://en.wikipedia.org/wiki/Cross-site_request_forgery#Synchronizer_token_pattern
+
+Example of Burp and phpMyAdmin. Even though you can't use Burp in the exam...
+
+1. Submit a login request for for intruder to analyse.
+2. Right click on the POST request in Burp and send to intruder.
+3. On the positions tab clear all set positions and add the cookie, set_session, token and password.
+4. Select pitchfork attack type so we can use different values for each position. https://portswigger.net/burp/documentation/desktop/tools/intruder/attack-types
+  * The attack iterates through all payload sets simultaneously, and places one payload into each defined position. In other words, the first request will place the first payload from payload set 1 into position 1 and the first payload from payload set 2 into position 2; the second request will place the second payload from payload set 1 into position 1 and the second payload from payload set 2 into position 2, etc. 
+5. Under options navigate to Grep -Extract which will save results of a request and make them available for the next one. Highlight the area of the token or set_session and it will extract the field.
+6. Navigate to payloads. Add the recursive greps and the password.
+7. Start attack.
+8. Identify the 302 different response. Login with same password.
+9. Run SQL query:
+   * `select * from webappdb.users;`
+   * `insert into webappdb.users(password, username) VALUES ("backdoor","backdoor");`
