@@ -20,3 +20,12 @@ for i in range(0, len(str), n):
 
 Useful for macros which have a string literal max length of 255, unless it is stored in a variable.
 
+### While using the fingerprint scripts I had to modify the scripts to get them to run
+
+Use the older version as per the study materials:
+https://github.com/LukasDrgon/fingerprintjs2
+
+As the new one is vastly different:
+https://github.com/fingerprintjs/fingerprintjs
+
+See fingerprint2server.html for changes implemented to the script used in training course.
