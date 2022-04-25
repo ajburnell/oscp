@@ -34,3 +34,43 @@ General Purpose Registers:
 * EBP. Base pointer. Stores a pointer to the top of the stack when a function is called. Allows a function to easily reference info from its own stack frame via offsets while executing. Required arguments, local variables and the return address.
 * EIP. Instruction pointer. Next code instruction to be executed. Primary target for attack.
 
+# Tips
+
+From Tib3rius THM overflow prep.
+
+Set mona's working folder to the name of the program:  
+`!mona config -set workingfolder c:\mona\%p`
+
+### Controlling EIP
+In the Windows and Linux overflow training we frquently used the `msf-pattern_offset -l XXX -q XXXXXX` command to find the offset for the EIP. This can be done within Immunity Debugger with the find metsasploit pattern command:  
+
+```bash
+!mona findmsp -distance XXX # Where XXX is the pattern length
+
+EIP contains normal pattern : 0x6f43396e (offset 1978)
+```
+This offset can then be placed in our pattern filler to lead up to the EIP.
+
+### Bad Characters
+
+Generate a byte array with mona, excluding the \x00 and it will go to working folder\bytearray.txt:  
+`!mona bytearray -b "\x00"`
+
+Generate badchars with python for payload:
+```python
+for x in range(1, 256):
+  print("\\x" + "{:02x}".format(x), end='')
+print()
+```
+
+Taking the ESP address of the crash and compare the contents to the byte array:  
+`!mona compare -f C:\mona\oscp\bytearray.bin -a 0190FA30`
+
+We can easily note the difference between those in memory and those in the file to see which are potentially bad chars. We can then omit from the exploit and regenerate the byte array in mona to iteratively remove all bad charatcers.
+
+# Jump Point
+
+Use Mona to find a JMP to ESP that doesn't contain our bad characters:  
+
+`!mona jmp -r esp -cpb x00\x07\x08\x2e\x2f\xa0\xa1`
+
