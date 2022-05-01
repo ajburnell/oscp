@@ -74,3 +74,6 @@ Use Mona to find a JMP to ESP that doesn't contain our bad characters:
 
 `!mona jmp -r esp -cpb x00\x07\x08\x2e\x2f\xa0\xa1`
 
+Neat command to search for locations with security disabled:  
+`!mona jmp -r ESP -cm aslr=false,rebase=false,safeseh=false -cpb "\x00\x09\x0a\x1a"`
+
