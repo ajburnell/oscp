@@ -5,5 +5,14 @@ Generate a malicious payload for testing with AV:
 
 Add the output to  `in_memory_injection.ps1`.
 
+Create a listener in `msfconsole`.
+
+Encode script in base64 and decode as a one liner. `powershel -E XXXX`:  
+https://github.com/darkoperator/powershell_scripts/blob/master/ps_encoder.py
+
+
+
+
+
 
 
