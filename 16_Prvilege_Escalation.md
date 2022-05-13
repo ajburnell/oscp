@@ -51,6 +51,9 @@ reg query HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Installer
 ```
 
 ### Linux Privilege Escalation
+
+https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
+
 ```bash
 id
 # Look for other users and clues to services installed, e.g. web, db, dc...
