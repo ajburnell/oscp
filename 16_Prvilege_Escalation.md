@@ -48,6 +48,7 @@ Get-WmiObject Win32_PnPSignedDriver | Select-Object DeviceName, DriverVersion, M
 # Check binaries that AutoElevate. If enabled an MSI could be crafter to elevate privileges.
 reg query HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Installer
 reg query HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Installer
+```
 
 ### Linux Privilege Escalation
 ```bash
@@ -94,6 +95,7 @@ lsmod
 # Enumerate elevated binaries. Binaries with SUID bit set take on the persmission of the file owner.
 # Look for files from root directory of -type f (file) with SUID bit set. Discard errors
 find / -perm -u=s -type f 2>/dev/null
+```
 
 ## Automated Enumeration
 
