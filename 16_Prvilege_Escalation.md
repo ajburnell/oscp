@@ -1,8 +1,8 @@
 # Privilege Escalation
 
-## Manual Enumeration
+## Enumeration
 
-### Windows Privilege Escalation
+### Windows Manual Privilege Escalation
 
 https://www.fuzzysecurity.com/tutorials/16.html
 
@@ -50,7 +50,7 @@ reg query HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Installer
 reg query HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Installer
 ```
 
-### Linux Privilege Escalation
+### Linux Manual Privilege Escalation
 
 https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
 
@@ -100,8 +100,6 @@ lsmod
 find / -perm -u=s -type f 2>/dev/null
 ```
 
-## Automated Enumeration
-
 ### Windows Automated Enumeration
 
 https://github.com/pentestmonkey/windows-privesc-check
@@ -115,3 +113,8 @@ https://pentestmonkey.net/tools/audit/unix-privesc-check
 
 `./unix-privesc-check standard > output.txt`  
 Or can use `detailed` instead of `standard`.
+
+## Windows Privilege Escalation Examples
+
+
+## Linux Privilege Escalation Examples
