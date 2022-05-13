@@ -1,9 +1,11 @@
 # Privilege Escalation
 
-## Enumeration
-`
+## Manual Enumeration
 
-## Windows Privilege Escalation
+### Windows Privilege Escalation
+
+https://www.fuzzysecurity.com/tutorials/16.html
+
 ```cmd
 whoami
 # List more information about user
@@ -47,7 +49,7 @@ Get-WmiObject Win32_PnPSignedDriver | Select-Object DeviceName, DriverVersion, M
 reg query HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Installer
 reg query HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Installer
 
-## Linux Privilege Escalation
+### Linux Privilege Escalation
 ```bash
 id
 # Look for other users and clues to services installed, e.g. web, db, dc...
@@ -92,3 +94,19 @@ lsmod
 # Enumerate elevated binaries. Binaries with SUID bit set take on the persmission of the file owner.
 # Look for files from root directory of -type f (file) with SUID bit set. Discard errors
 find / -perm -u=s -type f 2>/dev/null
+
+## Automated Enumeration
+
+### Windows Automated Enumeration
+
+https://github.com/pentestmonkey/windows-privesc-check
+
+Dump information about user groups:  
+`windows-privesc-check2.exe --dump -G`
+
+### Linux Automated Enumeration
+
+https://pentestmonkey.net/tools/audit/unix-privesc-check
+
+`./unix-privesc-check standard > output.txt`  
+Or can use `detailed` instead of `standard`.
