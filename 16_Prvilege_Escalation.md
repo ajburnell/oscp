@@ -116,5 +116,21 @@ Or can use `detailed` instead of `standard`.
 
 ## Windows Privilege Escalation Examples
 
+UAC integrity levels:
+```cmd
+whoami /groups
+# Note integrity level.
+net user admin newpassword
+# Access denied
+Switch to a higher level
+powershell.exe Start-Process cmd.exe -Verb runAs
+whoami /groups
+# Note the high level.
+net user admin newpassword
+# Success
+```
+
+Using sigcheck from Sysinternals we can see if an application will autoElevate:  
+`sigcheck.exe -a -m C:\Windows\System32\fodhelper.exe`  
 
 ## Linux Privilege Escalation Examples
