@@ -68,9 +68,9 @@ RDP does not reliabliy handle multiple threads.
 
 ## SSH
 
-Using `hydra` specify `-l` for the username, `-P` for the wordlist, and `procotol://IP for the target protocol and IP.
+Using `hydra` specify `-l` for the username, `-P` for the wordlist, and `procotol://IP` for the target protocol and IP.  
 
-hydra -l kali -P /usr/share/wordlists/rockyou.txt ssh://127.0.0.1
+`hydra -l kali -P /usr/share/wordlists/rockyou.txt ssh://127.0.0.1`
 
 ## HTTP POST
 
