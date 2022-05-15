@@ -162,5 +162,18 @@ gcc 41542.c -o exploit.exe
 
 See exercises.
 
+https://gtfobins.github.io/
 
+Linux Kernel Vulnerabilityy
 
+```bash
+# Enumerate
+cat /etc/issue
+uname -r
+arch
+# Find exploit
+searchsploit linux kernel ubuntu 16.04
+# Compile
+gcc 43418.c -o exploit
+# Run exploit...
+```
