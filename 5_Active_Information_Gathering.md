@@ -77,6 +77,17 @@ We can then make a query on a found domain name, again specifying that name serv
 
 # Port Scanning
 
+Quick and dirty for internal enumeration on hosts without tools.
+```
+#!/bin/bash
+host=<IP>
+for port in {1..65535}; do
+    timeout .1 bash -c "echo >/dev/tcp/$host/$port" &&
+        echo "port $port is open"
+done
+echo "Done"
+```
+
 Netcat for the basics:
 
 TCP port scan:
