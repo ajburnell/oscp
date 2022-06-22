@@ -209,8 +209,10 @@ Sqlmap can attempt WAF bypass and complex queries. `--os-shell` will try and get
 `sqlmap -u http://<ip>/debug.php?id=1 -p "id" --dbms=mysql --os-shell`
 
 For the exam Ssqlmap is not permitted. For training they recommend using it with Burp and Wireshark to capture what they are doing and replicate manually.
-
  
+## Wordpress
+ 
+`wpscan --url sandbox.local --enumerate ap,at,cb,dbe`
 
 
 
